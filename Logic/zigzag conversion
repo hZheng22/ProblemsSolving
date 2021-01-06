@@ -1,0 +1,26 @@
+'''
+PAYPALISHIRING
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+
+PAHNAPLSIIGYIR
+
+'''
+
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if len(s) == 1 or len(s) <= numRows or numRows == 1:
+            return s
+        mlist = [""] * numRows
+        direction = 0
+        index = 0
+        for i in s:
+            mlist[index] += i
+            if index == 0:
+                direction = 1
+            elif index == numRows - 1:
+                direction = -1
+            index += direction
+        return "".join(mlist)

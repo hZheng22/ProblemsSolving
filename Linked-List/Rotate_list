@@ -1,0 +1,33 @@
+'''
+Input: head = [1,2,3,4,5], k = 2
+Output: [4,5,1,2,3]
+
+firstly, close the ring by set tail.next = head
+secondly, choose the correct new head
+lastly, close the ring
+'''
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: ListNode, k: int) -> ListNode:
+        if head == None:
+            return None
+        # close the ring
+        old_tail = head
+        count = 1
+        while(old_tail.next):
+            old_tail = old_tail.next
+            count += 1
+        old_tail.next = head
+        start = head
+        new_head = head
+        for i in range(count - k % count - 1):
+            start = start.next
+        new_head = start.next
+        start.next = None
+        return new_head

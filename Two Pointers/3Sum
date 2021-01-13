@@ -1,0 +1,57 @@
+'''
+check whether exist three numbers sum up to 0
+
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+'''
+
+'''
+Two pointers + Hashset
+Time complexity O(n^2)
+sort the list,
+check whether two numbers sum up to the expected valus, lo++ / hi --
+
+Time Complexity O(n^2)
+'''
+
+
+class Solution:
+    def twoSum(self, nums, index, ans):
+        """
+        lo = index + 1
+        hi = len(nums) - 1
+        expected = 0 - nums[index]
+        while (lo < hi):
+            if nums[lo] + nums[hi] < expected:
+                lo += 1
+            elif nums[lo] + nums[hi] > expected:
+                hi -= 1
+            else:
+                ans.append([nums[index], nums[lo], nums[hi]])
+                lo += 1
+                hi -= 1
+                while(lo < hi) and nums[lo - 1] == nums[lo]:
+                        lo += 1
+        """
+        seen = set()
+        start = index + 1
+        while (start < len(nums)):
+            comp = 0 - nums[index] - nums[start]
+            if comp in seen:
+                ans.append([nums[index], nums[start], comp])
+                while (start + 1 < len(nums) and nums[start] == nums[start + 1]):
+                    start += 1
+            seen.add(nums[start])
+            start += 1
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        # two pointers
+        ans = []
+        nums.sort()
+        print(nums)
+        for i in range(len(nums) - 1):
+            if nums[i] > 0:
+                break
+            if i == 0 or nums[i - 1] != nums[i]:
+                self.twoSum(nums, i, ans)
+        return ans
